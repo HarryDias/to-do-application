@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>লাইব্রেরি সিস্টেম</title>
+  <style>
+    /* General reset */
+    body, h1, h2, p, ul, li, form, input, table {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans Bengali', 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header styling */
+    header {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-family: 'Noto Serif Bengali', 'Georgia', serif;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.4rem;
+      font-style: italic;
+      opacity: 0.9;
+    }
+
+    /* Navigation bar */
+    nav {
+      margin-top: 20px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    nav ul li {
+      display: inline;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Main content styling */
+    main {
+      flex: 1;
+      padding: 30px 20px;
+    }
+
+    /* Form styling */
+    .form-container {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container h2 {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      color: #333;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: #555;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      font-size: 1.1rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus {
+      border-color: #6a11cb;
+      outline: none;
+    }
+
+    .form-group button {
+      width: 100%;
+      padding: 12px;
+      font-size: 1.1rem;
+      background: #6a11cb;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .form-group button:hover {
+      background: #2575fc;
+    }
+
+    /* Error message styling */
+    .error-message {
+      color: #ff4d4d;
+      font-size: 0.95rem;
+      margin-top: 8px;
+      display: none;
+    }
+
+    /* Search bar styling */
+    .search-container {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 12px;
+      font-size: 1.1rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      transition: border-color 0.3s ease;
+    }
+
+    .search-container input:focus {
+      border-color: #6a11cb;
+      outline: none;
+    }
+
+    /* Table styling */
+    .table-container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .table-container h2 {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table th, table td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #6a11cb;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    table td {
+      font-size: 1.1rem;
+    }
+
+    table tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* Footer styling */
+    footer {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: auto;
+      box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    footer p {
+      margin: 8px 0;
+      font-size: 1.1rem;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+
+    footer a:hover {
+      opacity: 0.8;
+    }
+  </style>
+  <!-- Add Noto Sans Bengali and Noto Serif Bengali fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali&family=Noto+Serif+Bengali&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>আমার লাইব্রেরি</h1>
+    <p>জ্ঞান এবং কল্পনার দরজা</p>
+    <nav>
+      <ul>
+        <li><a href="#">হোম</a></li>
+        <li><a href="#">বই</a></li>
+        <li><a href="#">আমাদের সম্পর্কে</a></li>
+        <li><a href="#">যোগাযোগ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="form-container">
+      <h2>নতুন বই যোগ করুন</h2>
+      <form id="addBookForm">
+        <div class="form-group">
+          <label for="bookName">বইয়ের নাম</label>
+          <input type="text" id="bookName" placeholder="বইয়ের নাম লিখুন" required>
+          <div class="error-message" id="bookNameError">বইয়ের নাম আবশ্যক।</div>
+        </div>
+        <div class="form-group">
+          <label for="bookPrice">দাম</label>
+          <input type="number" id="bookPrice" placeholder="দাম লিখুন" step="0.01" required>
+          <div class="error-message" id="bookPriceError">দাম আবশ্যক এবং একটি বৈধ সংখ্যা হতে হবে।</div>
+        </div>
+        <div class="form-group">
+          <label for="purchaseDate">ক্রয়ের তারিখ</label>
+          <input type="date" id="purchaseDate" required>
+          <div class="error-message" id="purchaseDateError">ক্রয়ের তারিখ আবশ্যক।</div>
+        </div>
+        <div class="form-group">
+          <button type="submit">বই যোগ করুন</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="বইয়ের নাম দিয়ে খুঁজুন...">
+    </div>
+
+    <div class="table-container">
+      <h2>বইয়ের তালিকা</h2>
+      <table id="bookTable">
+        <thead>
+          <tr>
+            <th>বইয়ের নাম</th>
+            <th>দাম</th>
+            <th>ক্রয়ের তারিখ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Books will be dynamically added here -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; ২০২৩ আমার লাইব্রেরি। সর্বস্বত্ব সংরক্ষিত।</p>
+    <p><a href="#">গোপনীয়তা নীতি</a> | <a href="#">সেবার শর্তাবলী</a></p>
+  </footer>
+
+  <script>
+    // Function to convert English numerals to Bangla numerals
+    function toBanglaNumerals(number) {
+      const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      const banglaNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      return number.toString().replace(/\d/g, (digit) => banglaNumbers[englishNumbers.indexOf(digit)]);
+    }
+
+    // Function to format date in Bangla numerals
+    function formatDateToBangla(dateString) {
+      const date = new Date(dateString);
+      const year = toBanglaNumerals(date.getFullYear());
+      const month = toBanglaNumerals(date.getMonth() + 1); // Months are zero-based
+      const day = toBanglaNumerals(date.getDate());
+      return `${year}-${month}-${day}`;
+    }
+
+    // Array to store books
+    let books = [
+      { name: 'পথের পাঁচালী', price: 300.00, date: '2023-10-01' },
+      { name: 'দেবদাস', price: 250.00, date: '2023-10-02' },
+      { name: 'সেই সময়', price: 400.00, date: '2023-10-03' },
+      { name: 'গোরা', price: 350.00, date: '2023-10-04' },
+      { name: 'চোখের বালি', price: 280.00, date: '2023-10-05' },
+      { name: 'আরণ্যক', price: 320.00, date: '2023-10-06' },
+      { name: 'মেঘনাদবধ কাব্য', price: 270.00, date: '2023-10-07' },
+      { name: 'কপালকুণ্ডলা', price: 200.00, date: '2023-10-08' },
+      { name: 'অগ্নিবীণা', price: 180.00, date: '2023-10-09' },
+      { name: 'লালসালু', price: 220.00, date: '2023-10-10' },
+    ];
+
+    // Function to add a book
+    function addBook(name, price, date) {
+      const book = {
+        name: name,
+        price: parseFloat(price).toFixed(2),
+        date: date,
+      };
+      books.unshift(book); // Add the new book to the beginning of the array
+      if (books.length > 10) {
+        books.pop(); // Remove the last book if more than 10
+      }
+      renderBooks();
+    }
+
+    // Function to render books in the table
+    function renderBooks(filteredBooks = books) {
+      const tbody = document.querySelector('#bookTable tbody');
+      tbody.innerHTML = ''; // Clear existing rows
+
+      filteredBooks.forEach((book) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${book.name}</td>
+          <td>${toBanglaNumerals(book.price)} টাকা</td>
+          <td>${formatDateToBangla(book.date)}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    // Function to filter books by name
+    function searchBooks(query) {
+      const filteredBooks = books.filter((book) =>
+        book.name.toLowerCase().includes(query.toLowerCase())
+      );
+      renderBooks(filteredBooks);
+    }
+
+    // Form submission handler
+    document.getElementById('addBookForm').addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevent form submission
+
+      // Get form inputs
+      const bookName = document.getElementById('bookName').value.trim();
+      const bookPrice = document.getElementById('bookPrice').value.trim();
+      const purchaseDate = document.getElementById('purchaseDate').value.trim();
+
+      // Reset error messages
+      document.getElementById('bookNameError').style.display = 'none';
+      document.getElementById('bookPriceError').style.display = 'none';
+      document.getElementById('purchaseDateError').style.display = 'none';
+
+      // Validate inputs
+      let isValid = true;
+
+      if (!bookName) {
+        document.getElementById('bookNameError').style.display = 'block';
+        isValid = false;
+      }
+
+      if (!bookPrice || isNaN(bookPrice)) {
+        document.getElementById('bookPriceError').style.display = 'block';
+        isValid = false;
+      }
+
+      if (!purchaseDate) {
+        document.getElementById('purchaseDateError').style.display = 'block';
+        isValid = false;
+      }
+
+      // If form is valid, add the book
+      if (isValid) {
+        addBook(bookName, bookPrice, purchaseDate);
+        alert('বই সফলভাবে যোগ করা হয়েছে!');
+        document.getElementById('addBookForm').reset(); // Clear the form
+      }
+    });
+
+    // Search input handler
+    document.getElementById('searchInput').addEventListener('input', function (event) {
+      const query = event.target.value.trim();
+      searchBooks(query);
+    });
+
+    // Render initial books on page load
+    renderBooks();
+  </script>
+</body>
+</html>
